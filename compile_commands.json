@@ -1,0 +1,30 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-std=c++20",
+      "-I./include",
+      "-o",
+      "./bin/prog",
+      "./src/game.cpp"
+    ],
+    "directory": "/home/roninxv/c++-projects/SDL2_Base_Template",
+    "file": "/home/roninxv/c++-projects/SDL2_Base_Template/src/game.cpp",
+    "output": "/home/roninxv/c++-projects/SDL2_Base_Template/bin/prog"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-std=c++20",
+      "-I./include",
+      "-o",
+      "./bin/prog",
+      "./src/main.cpp"
+    ],
+    "directory": "/home/roninxv/c++-projects/SDL2_Base_Template",
+    "file": "/home/roninxv/c++-projects/SDL2_Base_Template/src/main.cpp",
+    "output": "/home/roninxv/c++-projects/SDL2_Base_Template/bin/prog"
+  }
+]
