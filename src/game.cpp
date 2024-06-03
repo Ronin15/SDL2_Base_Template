@@ -1,9 +1,15 @@
 #include <SDL2/SDL.h>
+#include <cstddef>
 #include <iostream>
 #include "game.hpp"
 
-SDL_Window* g_pWindow {0};
-SDL_Renderer* g_pRenderer {0};
+SDL_Window* m_pWindow {0};
+SDL_Renderer* m_pRenderer {0};
+SDL_Texture* m_pTexture {0};
+SDL_Rect m_sourceRectangle;
+SDL_Rect m_destinationRectangle;
+
+
 bool m_bRunning;
 
 using namespace std;
@@ -57,14 +63,20 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
   cout << "init success\n";
   m_bRunning = true; // everything inited successfully, start the main loop
+	
+  SDL_Surface* pTempSurface = SDL_LoadBMP("img/animate.bmp");
+  m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
+  SDL_FreeSurface(pTempSurface);
+  
+  m_sourceRectangle.w = 128;
+  m_sourceRectangle.h = 82;
+
+  m_destinationRectangle.x = m_sourceRectangle.x = 0;
+  m_destinationRectangle.y = m_sourceRectangle.y = 0;
+  m_destinationRectangle.w = m_sourceRectangle.w;
+  m_destinationRectangle.h = m_sourceRectangle.h;
 
   return true;
-}
-void Game::render()
-{
-  SDL_RenderClear(m_pRenderer); // clear the renderer to the draw color
-
-  SDL_RenderPresent(m_pRenderer); // draw to the screen
 }
 
 void Game::handleEvents()
@@ -84,6 +96,21 @@ void Game::handleEvents()
   }
 }
 
+void Game::update()
+{
+  m_sourceRectangle.x = 128 * int(((SDL_GetTicks() / 100) % 6));
+}
+
+void Game::render()
+{
+  SDL_RenderClear(m_pRenderer); // clear the renderer to draw 
+  
+  SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
+
+  SDL_RenderPresent(m_pRenderer); // draw to the screen
+}
+
+
 void Game::clean()
 {
   cout << "cleaning game\n";
@@ -92,8 +119,4 @@ void Game::clean()
   SDL_Quit();
 }
 
-void Game::update()
-{
-
-}
 
