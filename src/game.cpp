@@ -1,5 +1,4 @@
 #include <SDL2/SDL.h>
-#include <cstddef>
 #include <iostream>
 #include "game.hpp"
 
